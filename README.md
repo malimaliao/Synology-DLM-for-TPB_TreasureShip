@@ -31,13 +31,13 @@ To commemorate <b>Zheng He's</b> maritime career founded between 1405 and 1433, 
 
 ###### About the settings in this plugin:
 
-    * login user: it will be used as an alternative TPB mirror domain, For example: https://www.TPB.com (Do not add / at the end).
-    * login pass: It doesn't make any sense. You can fill it out casually.
+    * login username: it will be used as an alternative TPB, For example: https://www.TPB.com (Do not add / at the end)
+    * login password: it will be used as an alternative TPB api, For example: https://www.TPB.com/api
 
 
 #### About TPB
 
-> You must know that TPB's global domain name and image are unstable, and your best approach is to set the username (mapped to TPB) through the plugin instead of letting the plugin help you find a suitable TPB.
+> You must know that TPB's global domain name and image are unstable, and your best approach is to set the username&password (mapped to TPB) through the plugin instead of letting the plugin help you find a suitable TPB.
 
 
 ##### TPB Links
