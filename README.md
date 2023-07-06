@@ -41,6 +41,15 @@ To commemorate <b>Zheng He's</b> maritime career founded between 1405 and 1433, 
 > You must know that TPB's global domain name and image are unstable, and your best approach is to set the username&password (mapped to TPB) through the plugin instead of letting the plugin help you find a suitable TPB.
 
 
-##### TPB Links
+##### Links
 
- * https://proxy-bay.click/
+TPB:
+
+    * https://proxy-bay.click/
+    * https://proxybay.pages.dev/
+ 
+ 
+Tracker list:
+
+    * https://ngosang.github.io/trackerslist/
+    * https://trackerslist.com/

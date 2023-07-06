@@ -40,6 +40,15 @@
 
 
 
-##### TPB 相关链接
+##### 相关链接
 
- * https://proxybay.pages.dev/
+TPB:
+
+    * https://proxy-bay.click/
+    * https://proxybay.pages.dev/
+ 
+ 
+Tracker list:
+
+    * https://ngosang.github.io/trackerslist/
+    * https://trackerslist.com/
