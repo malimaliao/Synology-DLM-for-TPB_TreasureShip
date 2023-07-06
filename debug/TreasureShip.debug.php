@@ -1,8 +1,10 @@
+<html>
+<body>
 <?php
 include_once "../search.php";
 
 $test = new TreasureShip();
-
+$test -> debug = true;
 # test1
 # print_r($test -> getPage('https://test.pro/'));
 
@@ -40,7 +42,7 @@ if (preg_match_all("/$regexp2/is", $response, $matches2, PREG_SET_ORDER)) {
 # test 5
 #/**
 #echo date("Y-m-d H:i:s", strtotime('-1 years'));
-echo $test -> format_tpb_trackers('./tracker.txt');
+#echo $test -> format_tpb_trackers('../trackers.txt');
 #*/
 
 # test101
@@ -57,7 +59,9 @@ $out_101 = $test -> parse('101',$res_101);
 echo 'count: '.$out_101;
 #*/
 
-
-echo PHP_EOL.'<br>=== end ===';
-
+echo '<hr>';
+echo '=== <a href="TreasureShip.debug.log" target="_blank">TreasureShip.debug.log</a> ==='.PHP_EOL.PHP_EOL;
+echo '<pre>'.htmlspecialchars(file_get_contents('TreasureShip.debug.log')).'</pre>';
+echo '</body>';
+echo '</html>';
 ?>

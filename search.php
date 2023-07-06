@@ -9,16 +9,15 @@
  */
 
 class TreasureShip{
-    private $tpb_site_b64 = 'aHR0cHM6Ly90aGVwaXJhdGViYXkub3Jn';
-    private $tpb_api_b64 = "aHR0cHM6Ly9hcGliYXkub3JnL3EucGhwP3E9Z29kZmF0aGVyJmNhdD0=";
-
-    private $tpb_get_url = "https://raw.githubusercontent.com/malimaliao/Synology-DLM-for-TPB_TreasureShip/main/tpb.css";
-
-    private $tpb_site = '';
-    private $tpb_api = '';
-
+    public $debug = false;
     private $opts = ["ssl" => ["verify_peer"=>false, "verify_peer_name"=>false,]];
-    private $debug = false;
+
+    private $tpb_api_b64 = "aHR0cHM6Ly9hcGliYXkub3JnL3EucGhwP3E9Z29kZmF0aGVyJmNhdD0=";
+    private $trackers_url_b64 = 'aHR0cHM6Ly90aGVwaXJhdGViYXkub3Jn';
+    private $ts_cloud_url = "https://raw.githubusercontent.com/malimaliao/Synology-DLM-for-TPB_TreasureShip/main/tpb.css";
+    
+    private $tpb_api = '';
+    private $trackers_list = '';
 
     public function __construct(){
     }
@@ -51,54 +50,59 @@ class TreasureShip{
     // Synology DownloadStation api function
     public function VerifyAccount($username, $password){
         $ret = FALSE;
-        $this->DebugLog("TPB(replace with username): ".$username.PHP_EOL);
-        if ($username == "") {
-            $username = file_get_contents($this->tpb_get_url,false, stream_context_create($this->opts));
-            $username = base64_decode($username); // b64 decode
+        $this->DebugLog("TPB(VerifyAccount username): ".$username.PHP_EOL);
+        if ($username != "") {
+            $result = file_get_contents($username,false, stream_context_create($this->opts));
+            $this->DebugLog("TPB(VerifyAccount username response): ".PHP_EOL.PHP_EOL.$result.PHP_EOL.PHP_EOL);
+            if (strpos($result, '0000000000000000000000000000000000000000') !== false) {
+                $ret = TRUE;
+                $rem = 'ok';
+                $this->tpb_api = $username; //update
+            }else{
+                $rem = 'error';
+            }
+            $this->DebugLog("TPB(VerifyAccount username echo):" .$rem.PHP_EOL);
         }
-        $result = file_get_contents($username,false, stream_context_create($this->opts));
-        $this->DebugLog("TPB(get response): ".PHP_EOL.PHP_EOL.$result.PHP_EOL.PHP_EOL);
-        if (strpos($result, 'The Pirate Bay') !== false) {
-            $ret = TRUE;
-            $rem = 'work';
-            $this->tpb_api = $username;
-        }else{
-            $rem = 'none';
-        }
-        $this->DebugLog("TPB(get check):" .$rem.PHP_EOL);
         return $ret;
     }
 
     // Synology DownloadStation api function
     public function prepare($curl, $query, $username, $password)
     {
-        if ($username == "" or $password == "") { // get cloud b64
-            $this->DebugLog("TPB(get start): ".$this->tpb_get_url.PHP_EOL);
-            $tmp = file_get_contents($this->tpb_get_url,false, stream_context_create($this->opts));
-            $this->DebugLog('@html:'.$tmp);
-            // $tpb:tpb_url_b64@tpb_api_b64#
-            if(preg_match('/\$tpb:(.+?)@(.+?)#/i',$tmp,$data)){
-                $url = base64_decode($data[1]);
-                $site = base64_decode($data[2]);
-                $this->DebugLog("TPB(get success and site use default) ".$site.PHP_EOL);
-                $this->DebugLog("TPB(get success and api use default) ".$url.PHP_EOL);
+        # init
+        if($this->tpb_api == ''){
+            if ($username == "" or $password == "") { // get cloud b64
+                $this->DebugLog("TPB(get start): ".$this->ts_cloud_url.PHP_EOL);
+                $tmp = file_get_contents($this->ts_cloud_url,false, stream_context_create($this->opts));
+                $this->DebugLog('@html:'.$tmp.PHP_EOL);
+                // ts_cloud_api format: $tpb:tpb_api_b64@trackers:trackers_url_b64$
+                if(preg_match('/\$tpb:(.+?)@trackers:(.+?)@/i',$tmp,$data)){
+                    $tpb_api = base64_decode($data[1]);
+                    $trackers_url = base64_decode($data[2]);
+                    $this->DebugLog("TPB(get success, tpb): ".$tpb_api.PHP_EOL);
+                    $this->DebugLog("TPB(get success, trackers): ".$trackers_url.PHP_EOL);
+                }else{
+                    $tpb_api = base64_decode($this->tpb_api_b64);
+                    $trackers_url = base64_decode($this->trackers_url_b64);
+                    $this->DebugLog("TPB(get bad and tpb use default): ".$tpb_api.PHP_EOL);
+                    $this->DebugLog("TPB(get bad and trackers use default): ".$trackers_url.PHP_EOL);
+                }
             }else{
-                $site = base64_decode($this->tpb_site_b64);
-                $url = base64_decode($this->tpb_api_b64);
-                $this->DebugLog("TPB(get bad and site use default) ".$site.PHP_EOL);
-                $this->DebugLog("TPB(get bad and api use default) ".$url.PHP_EOL);
+                $tpb_api = $username;
+                $trackers_url = $password;
+                $this->DebugLog("TPB(tpb replace with username): ".$tpb_api.PHP_EOL);
+                $this->DebugLog("TPB(trackers replace with password): ".$trackers_url.PHP_EOL);
             }
-        }else{
-            $site = $username;
-            $url = $password;
-            $this->DebugLog("TPB(site replace with username): ".$site.PHP_EOL);
-            $this->DebugLog("TPB(api replace with password): ".$url.PHP_EOL);
+            $this->tpb_api = $tpb_api; // update
         }
-        $this->tpb_site = $site; // update
-        $this->tpb_api = $url; // update
-        $this->DebugLog(sprintf($url, urlencode($query)).PHP_EOL);
-        curl_setopt($curl, CURLOPT_URL, sprintf($url, urlencode($query)));
-        curl_setopt($curl, CURLOPT_HEADER, 1);
+        if($this->trackers_list == ''){
+            $this->trackers_list = $this->format_tpb_trackers($password); // update
+        }
+        # start
+        $url = sprintf($this->tpb_api.'%s&cat=', urlencode($query));
+        $this->DebugLog($url.PHP_EOL);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HEADER, 0);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($curl, CURLOPT_TIMEOUT, 20);
@@ -115,29 +119,30 @@ class TreasureShip{
 
         $items = json_decode($response,true);
         $res = 0;
-        foreach ($items as $item){
-            $title = $item['name'];
-            $hash = $item['info_hash'];
-            $leechers = $item['leechers'];
-            $seeders = $item['seeders'];
-            $datetime = date('Y-m-d H:i:s',(int)$item['added']);
-            $size = (int)$item['size'];
-            $category = $this->format_tpb_category($item['category']);
-            $page = "https://pirate-proxy.click/description.php?id=".$item['id'];
-            $download = "magnet:?xt=urn:btih:".$hash;
-            $download .= '&dn='.$title; // url_encode?
-            $download .= $this->format_tpb_trackers('trackers.txt');
+        if($items != null){
+            foreach ($items as $item){
+                $title = $item['name'];
+                $hash = $item['info_hash'];
+                $leechers = $item['leechers'];
+                $seeders = $item['seeders'];
+                $datetime = date('Y-m-d H:i:s',(int)$item['added']);
+                $size = (int)$item['size'];
+                $category = $this->format_tpb_category($item['category']);
+                $page = "https://pirate-proxy.click/description.php?id=".$item['id'];
+                $download = "magnet:?xt=urn:btih:".$hash;
+                $download .= '&dn='.urlencode($title);
+                $download .= $this->trackers_list;
 
-            # push Plugin
-            if ($title != "") {
-                if ($this->debug == true) {
-                    // out debug
-                    echo $title.'|'.$download.'|'.$size.'|'.$datetime.'|'.$page.'|'.$hash.'|'.$seeders.'|'.$leechers.'|'.$category;
-                    $this->DebugLog($title.'|'.$download.'|'.$size.'|'.$datetime.'|'.$page.'|'.$hash.'|'.$seeders.'|'.$leechers.'|'.$category.PHP_EOL);
-                }else{ // out plugin
-                    $plugin->addResult($title, $download, $size, $datetime, $page, $hash, $seeders, $leechers, $category);
+                # push Plugin
+                if ($title != "") {
+                    if ($this->debug == true) {
+                        // out debug
+                        $this->DebugLog($title.'|'.$download.'|'.$size.'|'.$datetime.'|'.$page.'|'.$hash.'|'.$seeders.'|'.$leechers.'|'.$category.PHP_EOL);
+                    }else{ // out plugin
+                        $plugin->addResult($title, $download, $size, $datetime, $page, $hash, $seeders, $leechers, $category);
+                    }
+                    $res++;
                 }
-                $res++;
             }
         }
         return $res;
@@ -301,11 +306,19 @@ class TreasureShip{
         return $category;
     }
 
-    function format_tpb_trackers($trackers_txt){
-        $lines = file($trackers_txt, FILE_SKIP_EMPTY_LINES|FILE_IGNORE_NEW_LINES);
-        $trackers = '';
-        foreach($lines as $line) {
-            $trackers .= '&tr=' . $line;
+    function format_tpb_trackers($password_url){
+        $trackers = '&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969%2Fannounce&tr=udp%3A%2F%2F9.rarbg.to%3A2710%2Fannounce&tr=udp%3A%2F%2F9.rarbg.me%3A2780%2Fannounce&tr=udp%3A%2F%2F9.rarbg.to%3A2730%2Fannounce&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=http%3A%2F%2Fp4p.arenabg.com%3A1337%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Ftracker.tiny-vps.com%3A6969%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce';
+        if(preg_match("/http[s]?:\/\/[\w.]+[\w\/]*[\w.]*\??[\w=&\+\%]*/is",$password_url)){
+            $result = file_get_contents($password_url,false, stream_context_create($this->opts));
+            if (strpos($result, 'announce') !== false) {
+                $lines = preg_split('/[\s]+/',$result);
+                if(count($lines)>0){
+                    $trackers = ''; // ret
+                    foreach ($lines as $line){
+                        $trackers .= '&tr='.urlencode($line);
+                    }
+                }
+            }
         }
         return $trackers;
     }
