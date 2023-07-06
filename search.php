@@ -4,8 +4,13 @@
  * TreasureShip
  * https://cndl.synology.cn/download/Document/Software/DeveloperGuide/Package/DownloadStation/All/enu/DLM_Guide.pdf
  * Developer Notes:
- *  $tpb_api_b64: tpb default host ( use base64 encode)
- *  $tpb_get_b64: If no username mapping host is defined, the program obtains it from this source and parses the output in base64.
+ *
+ *  $tpb_api_b64: tpb default api url ( use base64 encode)
+ *  $trackers_url_b64: trackers list default url ( use base64 encode)
+ *
+ *  $ts_cloud_url: TPB_TreasureShip cloud api:
+ *      >>: format: $tpb:tpb_api_b64@trackers:trackers_url_b64@
+ *      >>: example: $tpb:aHR0cHM6Ly9waXJhdGUtcHJveHkuY2xpY2svbmV3YXBpL3EucGhwP3E9@trackers:aHR0cHM6Ly9naXRlYS5jb20vWElVMi9UcmFja2Vyc0xpc3RDb2xsZWN0aW9uL3Jhdy9icmFuY2gvbWFzdGVyL2Jlc3QudHh0@
  */
 
 class TreasureShip{
@@ -17,6 +22,7 @@ class TreasureShip{
     private $ts_cloud_url = "https://raw.githubusercontent.com/malimaliao/Synology-DLM-for-TPB_TreasureShip/main/ts.css";
     
     private $tpb_api = '';
+    private $tracker_url = '';
     private $trackers_list = '';
 
     public function __construct(){
@@ -71,7 +77,8 @@ class TreasureShip{
     {
         # init
         if($this->tpb_api == ''){
-            if ($username == "" or $password == "") { // get ts cloud b64
+            if ($username == "" or $password == "") {
+                // get ts cloud b64
                 $this->DebugLog("TPB(get start): ".$this->ts_cloud_url.PHP_EOL);
                 $tmp = file_get_contents($this->ts_cloud_url,false, stream_context_create($this->opts));
                 $this->DebugLog('@html:'.$tmp.PHP_EOL);
@@ -88,7 +95,7 @@ class TreasureShip{
                     $this->DebugLog("TPB(get bad and trackers use default): ".$trackers_url.PHP_EOL);
                 }
             }else{
-                // use custom username and password replace the tpb&trackers
+                // check username_url
                 if(preg_match("/http[s]?:\/\/[\w.]+[\w\/]*[\w.]*\??[\w=&\+\%]*/is",$username)){
                     $tpb_api = $username;
                     $this->DebugLog("TPB(tpb replace with username_url): ".$tpb_api.PHP_EOL);
@@ -96,18 +103,20 @@ class TreasureShip{
                     $tpb_api = base64_decode($this->tpb_api_b64);
                     $this->DebugLog("TPB(username_url check bad and use default): ".$tpb_api.PHP_EOL);
                 }
+                # check password_url
                 if(preg_match("/http[s]?:\/\/[\w.]+[\w\/]*[\w.]*\??[\w=&\+\%]*/is",$password)){
                     $trackers_url = $password;
-                    $this->DebugLog("TPB(password_url check bad and use default): ".$trackers_url.PHP_EOL);
+                    $this->DebugLog("TPB(trackers replace with password_url): ".$trackers_url.PHP_EOL);
                 }else{
                     $trackers_url = base64_decode($this->trackers_url_b64);
-                    $this->DebugLog("TPB(get bad and trackers use default): ".$trackers_url.PHP_EOL);
+                    $this->DebugLog("TPB(password_url check bad and use default): ".$trackers_url.PHP_EOL);
                 }
             }
             $this->tpb_api = $tpb_api; // update
+            $this->tracker_url = $trackers_url; // update
         }
         if($this->trackers_list == ''){
-            $this->trackers_list = $this->format_tpb_trackers($password); // update
+            $this->trackers_list = $this->format_tpb_trackers($this->tracker_url); // update
         }
         # start
         $url = sprintf($this->tpb_api.'%s&cat=', urlencode($query));
