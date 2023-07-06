@@ -29,8 +29,8 @@
 
 ###### 关于本插件中的设置：
 
-     * 登录用户：将用作备用TPB镜像域，例如：https://www.TPB.com（末尾不要添加/）
-     * 登录密码：将用作备用TPB镜像域的api接口，例如：https://www.TPB.com/api
+     * 账号: 填写正确的网址后将替代默认的TPB api 接口, 例: https://TPB.com/api?q=
+     * 密码: 填写正确的网址后则会替代默认的trackerlist，例: https://trackerlist.io/trackers_best.txt
 
 
 #### 关于TPB

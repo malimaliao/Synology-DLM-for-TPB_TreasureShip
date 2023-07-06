@@ -31,8 +31,8 @@ To commemorate <b>Zheng He's</b> maritime career founded between 1405 and 1433, 
 
 ###### About the settings in this plugin:
 
-    * login username: it will be used as an alternative TPB, For example: https://www.TPB.com (Do not add / at the end)
-    * login password: it will be used as an alternative TPB api, For example: https://www.TPB.com/api
+    * login username: it will be used as an alternative TPB api url, For example: https://TPB.com/api?q=
+    * login password: it will be used as an alternative trackerlist txt url, For example: https://trackerlist.io/trackers_best.txt
 
 
 #### About TPB
