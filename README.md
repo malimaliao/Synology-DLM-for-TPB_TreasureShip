@@ -27,7 +27,8 @@ To commemorate <b>Zheng He's</b> maritime career founded between 1405 and 1433, 
 ##### features
 
 + This plug-in is based on crawler index content from TPB or TPB mirror, not the content provided or produced by this plug-in.
-+ In the plugin settings, you can customize the TPB domain name for yourself by setting the plugin login account. Otherwise, the system will attempt to automatically obtain it. If the automatic acquisition also fails, a default TPB mirror domain name will be used.
++ In the plugin settings, support custom TPB host interface (using account mapping).
++ In the plugin settings, support custom trackerlist.txt access to magnetic resources (using password mapping) to improve magnetic download speed
 
 ###### About the settings in this plugin:
 
