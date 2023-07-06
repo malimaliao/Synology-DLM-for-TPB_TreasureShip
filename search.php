@@ -56,6 +56,7 @@ class TreasureShip{
     // Synology DownloadStation api function
     public function VerifyAccount($username, $password){
         $ret = FALSE;
+        $username = trim($username);
         $this->DebugLog("TPB(VerifyAccount username): ".$username.PHP_EOL);
         if ($username != "") {
             $result = file_get_contents($username,false, stream_context_create($this->opts));
@@ -75,6 +76,9 @@ class TreasureShip{
     // Synology DownloadStation api function
     public function prepare($curl, $query, $username, $password)
     {
+        $query = trim($query);
+        $username = trim($username);
+        $password = trim($password);
         # init
         if($this->tpb_api == ''){
             if ($username == "" or $password == "") {
@@ -335,7 +339,9 @@ class TreasureShip{
                 if(count($lines)>0){
                     $trackers = ''; // ret
                     foreach ($lines as $line){
-                        $trackers .= '&tr='.urlencode($line);
+                        if(trim($line) != ''){
+                            $trackers .= '&tr='.urlencode(trim($line));
+                        }
                     }
                 }
             }

@@ -35,6 +35,8 @@ To commemorate <b>Zheng He's</b> maritime career founded between 1405 and 1433, 
     * login username: it will be used as an alternative TPB api url, For example: https://TPB.com/api?q=
     * login password: it will be used as an alternative trackerlist txt url, For example: https://trackerlist.io/trackers_best.txt
 
+> The tracklist.txt list should not be too long. It is recommended to have no more than 50 items. If it is too long, it will be truncated by the system
+
 
 #### About TPB
 

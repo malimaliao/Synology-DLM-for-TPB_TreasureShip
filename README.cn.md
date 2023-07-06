@@ -32,6 +32,8 @@
 
      * 账号: 填写正确的网址后将替代默认的TPB api 接口, 例: https://TPB.com/api?q=
      * 密码: 填写正确的网址后则会替代默认的trackerlist，例: https://trackerlist.io/trackers_best.txt
+  
+  > tracklist.txt 名单不应该太长，太长会被系统截断
 
 
 #### 关于TPB
