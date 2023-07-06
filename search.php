@@ -12,9 +12,9 @@ class TreasureShip{
     public $debug = false;
     private $opts = ["ssl" => ["verify_peer"=>false, "verify_peer_name"=>false,]];
 
-    private $tpb_api_b64 = "aHR0cHM6Ly9hcGliYXkub3JnL3EucGhwP3E9Z29kZmF0aGVyJmNhdD0=";
-    private $trackers_url_b64 = 'aHR0cHM6Ly90aGVwaXJhdGViYXkub3Jn';
-    private $ts_cloud_url = "https://raw.githubusercontent.com/malimaliao/Synology-DLM-for-TPB_TreasureShip/main/tpb.css";
+    private $tpb_api_b64 = "aHR0cHM6Ly9hcGliYXkub3JnL3EucGhwP3E9";
+    private $trackers_url_b64 = 'aHR0cHM6Ly9uZ29zYW5nLmdpdGh1Yi5pby90cmFja2Vyc2xpc3QvdHJhY2tlcnNfYmVzdC50eHQ=';
+    private $ts_cloud_url = "https://raw.githubusercontent.com/malimaliao/Synology-DLM-for-TPB_TreasureShip/main/ts.css";
     
     private $tpb_api = '';
     private $trackers_list = '';
@@ -320,6 +320,7 @@ class TreasureShip{
                 }
             }
         }
+        $this->DebugLog(PHP_EOL.PHP_EOL.$trackers.PHP_EOL.PHP_EOL);
         return $trackers;
     }
 
