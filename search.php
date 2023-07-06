@@ -75,7 +75,7 @@ class TreasureShip{
                 $this->DebugLog("TPB(get start): ".$this->ts_cloud_url.PHP_EOL);
                 $tmp = file_get_contents($this->ts_cloud_url,false, stream_context_create($this->opts));
                 $this->DebugLog('@html:'.$tmp.PHP_EOL);
-                // ts_cloud_api format: $tpb:tpb_api_b64@trackers:trackers_url_b64$
+                // ts_cloud_api format: $tpb:tpb_api_b64@trackers:trackers_url_b64@
                 if(preg_match('/\$tpb:(.+?)@trackers:(.+?)@/i',$tmp,$data)){
                     $tpb_api = base64_decode($data[1]);
                     $trackers_url = base64_decode($data[2]);
