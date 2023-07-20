@@ -5,11 +5,8 @@
  * https://cndl.synology.cn/download/Document/Software/DeveloperGuide/Package/DownloadStation/All/enu/DLM_Guide.pdf
  * Developer Notes:
  *
- *  $tpb_api_url: tpb default api url
- *  $trackers_url_txt: trackers list default url
- *
  *  $ts_cloud_url: TPB_TreasureShip cloud api:
- *      >>: format: $tpb:tpb_api_url base64@trackers:trackers_url_txt base64@
+ *      >>: format: $tpb:tpb_api_url base64@trackers:trackers_url_txt base64@from:tpb_host@
  *      >>: example: $tpb:aHR0cHM6Ly9waXJhdGUtcHJveHkuY2xpY2svbmV3YXBpL3EucGhwP3E9@trackers:aHR0cHM6Ly9naXRlYS5jb20vWElVMi9UcmFja2Vyc0xpc3RDb2xsZWN0aW9uL3Jhdy9icmFuY2gvbWFzdGVyL2Jlc3QudHh0@
  */
 
@@ -17,14 +14,15 @@ class TreasureShip{
     public $debug = false;
     private $opts = ["ssl" => ["verify_peer"=>false, "verify_peer_name"=>false,]];
 
-    private $tpb_api_url = "https://apibay.org/q.php?q="; // default
-    private $tpb_api_host = "https://pirate-proxy.click"; // default
-    private $trackers_url_txt = 'https://ngosang.github.io/trackerslist/trackers_best.txt'; // default
+    private $default_api_url = "https://apibay.org/q.php?q="; // default
+    private $default_api_host = "https://thepiratebay.org"; // default
+    private $default_tracker_txt = 'https://ngosang.github.io/trackerslist/trackers_best.txt'; // default
     private $ts_cloud_url = "https://raw.githubusercontent.com/malimaliao/Synology-DLM-for-TPB_TreasureShip/main/ts.css";  // cloud
-    
+
     private $tpb_api = '';
     private $tracker_url = '';
     private $trackers_list = '';
+    private $tpb_host='';
 
     public function __construct(){
     }
@@ -87,15 +85,17 @@ class TreasureShip{
                 $this->DebugLog("TPB(get start): ".$this->ts_cloud_url.PHP_EOL);
                 $tmp = file_get_contents($this->ts_cloud_url,false, stream_context_create($this->opts));
                 $this->DebugLog('@html:'.$tmp.PHP_EOL);
-                // ts_cloud_api format: $tpb:tpb_api_url@trackers:trackers_url_txt@
-                if(preg_match('/\$tpb:(.+?)@trackers:(.+?)@/i',$tmp,$data)){
+                // ts_cloud_api format: $tpb:tpb_api_url@trackers:trackers_url_txt@from:tpb_host@
+                if(preg_match('/\$tpb:(.+?)@trackers:(.+?)@from:(.+?)@/i',$tmp,$data)){
                     $tpb_api = base64_decode($data[1]);
                     $trackers_url = base64_decode($data[2]);
+                    $tpb_from = base64_decode($data[3]);
                     $this->DebugLog("TPB(get success, tpb): ".$tpb_api.PHP_EOL);
                     $this->DebugLog("TPB(get success, trackers): ".$trackers_url.PHP_EOL);
                 }else{
-                    $tpb_api = $this->tpb_api_url;
-                    $trackers_url = $this->trackers_url_txt;
+                    $tpb_api = $this->default_api_url;
+                    $trackers_url = $this->default_tracker_txt;
+                    $tpb_from = $this->default_api_host;
                     $this->DebugLog("TPB(get bad and tpb use default): ".$tpb_api.PHP_EOL);
                     $this->DebugLog("TPB(get bad and trackers use default): ".$trackers_url.PHP_EOL);
                 }
@@ -105,7 +105,7 @@ class TreasureShip{
                     $tpb_api = $username;
                     $this->DebugLog("TPB(tpb replace with username_url): ".$tpb_api.PHP_EOL);
                 }else{
-                    $tpb_api = $this->tpb_api_url;
+                    $tpb_api = $this->default_api_url;
                     $this->DebugLog("TPB(username_url check bad and use default): ".$tpb_api.PHP_EOL);
                 }
                 # check password_url
@@ -113,12 +113,14 @@ class TreasureShip{
                     $trackers_url = $password;
                     $this->DebugLog("TPB(trackers replace with password_url): ".$trackers_url.PHP_EOL);
                 }else{
-                    $trackers_url = $this->trackers_url_txt;
+                    $trackers_url = $this->default_tracker_txt;
                     $this->DebugLog("TPB(password_url check bad and use default): ".$trackers_url.PHP_EOL);
                 }
+                $tpb_from = $this->default_api_host;
             }
             $this->tpb_api = $tpb_api; // update
             $this->tracker_url = $trackers_url; // update
+            $this->tpb_host = $tpb_from; // update
         }
         if($this->trackers_list == ''){
             $this->trackers_list = $this->format_tpb_trackers($this->tracker_url); // update
@@ -153,7 +155,7 @@ class TreasureShip{
                 $datetime = date('Y-m-d H:i:s',(int)$item['added']);
                 $size = (int)$item['size'];
                 $category = $this->format_tpb_category($item['category']);
-                $page = $this->tpb_api_host."/description.php?id=".$item['id'];
+                $page = $this->tpb_host."/description.php?id=".$item['id'];
                 $download = "magnet:?xt=urn:btih:".$hash;
                 $download .= '&dn='.urlencode($title);
                 $download .= $this->trackers_list;
