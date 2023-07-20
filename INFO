@@ -3,7 +3,7 @@
     "displayname": "TPB TreasureShip",
     "description": "To commemorate Zheng He's maritime career founded between 1405 and 1433, you can use this plugin called [Treasure Ship] to navigate on the TPB.",
     "accountsupport": true,
-    "version": "1.1",
+    "version": "1.2",
     "site": "https://TPB_TreasureShip.com",
     "type": "search",
     "module": "search.php",
