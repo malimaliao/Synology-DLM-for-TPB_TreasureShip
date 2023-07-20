@@ -17,9 +17,10 @@ class TreasureShip{
     public $debug = false;
     private $opts = ["ssl" => ["verify_peer"=>false, "verify_peer_name"=>false,]];
 
-    private $tpb_api_url = "https://apibay.org/q.php?q=";
-    private $trackers_url_txt = 'https://ngosang.github.io/trackerslist/trackers_best.txt';
-    private $ts_cloud_url = "https://raw.githubusercontent.com/malimaliao/Synology-DLM-for-TPB_TreasureShip/main/ts.css";
+    private $tpb_api_url = "https://apibay.org/q.php?q="; // default
+    private $tpb_api_host = "https://pirate-proxy.click"; // default
+    private $trackers_url_txt = 'https://ngosang.github.io/trackerslist/trackers_best.txt'; // default
+    private $ts_cloud_url = "https://raw.githubusercontent.com/malimaliao/Synology-DLM-for-TPB_TreasureShip/main/ts.css";  // cloud
     
     private $tpb_api = '';
     private $tracker_url = '';
@@ -152,7 +153,7 @@ class TreasureShip{
                 $datetime = date('Y-m-d H:i:s',(int)$item['added']);
                 $size = (int)$item['size'];
                 $category = $this->format_tpb_category($item['category']);
-                $page = "https://pirate-proxy.click/description.php?id=".$item['id'];
+                $page = $this->tpb_api_host."/description.php?id=".$item['id'];
                 $download = "magnet:?xt=urn:btih:".$hash;
                 $download .= '&dn='.urlencode($title);
                 $download .= $this->trackers_list;
