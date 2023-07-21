@@ -6,8 +6,8 @@
  * Developer Notes:
  *
  *  $ts_cloud_url: TPB_TreasureShip cloud api:
- *      >>: format: $tpb:tpb_api_url base64@trackers:trackers_url_txt base64@from:tpb_host@
- *      >>: example: $tpb:aHR0cHM6Ly9waXJhdGUtcHJveHkuY2xpY2svbmV3YXBpL3EucGhwP3E9@trackers:aHR0cHM6Ly9naXRlYS5jb20vWElVMi9UcmFja2Vyc0xpc3RDb2xsZWN0aW9uL3Jhdy9icmFuY2gvbWFzdGVyL2Jlc3QudHh0@
+ *      >>: format: tpb@<web:url><api:url><trackers:url>
+ *      >>: example: tpb@<web:http://test.com><api:http://test.com/api/q.php?q=><trackers:http://test.com/trackers.txt>
  */
 
 class TreasureShip{
@@ -86,10 +86,10 @@ class TreasureShip{
                 $tmp = file_get_contents($this->ts_cloud_url,false, stream_context_create($this->opts));
                 $this->DebugLog('@html:'.$tmp.PHP_EOL);
                 // ts_cloud_api format: $tpb:tpb_api_url@trackers:trackers_url_txt@from:tpb_host@
-                if(preg_match('/\$tpb:(.+?)@trackers:(.+?)@from:(.+?)@/i',$tmp,$data)){
-                    $tpb_api = base64_decode($data[1]);
-                    $trackers_url = base64_decode($data[2]);
-                    $tpb_from = base64_decode($data[3]);
+                if(preg_match('/tpb@<web:(.+?)><api:(.+?)><trackers:(.+?)>/i',$tmp,$data)){
+                    $tpb_from = $data[1];
+                    $tpb_api = $data[2];
+                    $trackers_url = $data[3];
                     $this->DebugLog("TPB(get success, tpb): ".$tpb_api.PHP_EOL);
                     $this->DebugLog("TPB(get success, trackers): ".$trackers_url.PHP_EOL);
                 }else{
