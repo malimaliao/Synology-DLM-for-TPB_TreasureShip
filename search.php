@@ -18,7 +18,7 @@ class TreasureShip{
     private $default_api_host = "https://thepiratebay.org"; // default
     private $default_tracker_txt = 'https://ngosang.github.io/trackerslist/trackers_best.txt'; // default
     # private $ts_cloud_url = "https://raw.githubusercontent.com/malimaliao/Synology-DLM-for-TPB_TreasureShip/main/ts.css";  // cloud
-    private $ts_cloud_url = 'https://raw.gitmirror.com/malimaliao/Synology-DLM-for-TPB_TreasureShip/main/ts.css';
+    private $ts_cloud_url = 'https://cdn.jsdelivr.net/gh/malimaliao/Synology-DLM-for-TPB_TreasureShip@main/ts.css';
     private $tpb_api = '';
     private $tracker_url = '';
     private $trackers_list = '';
