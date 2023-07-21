@@ -19,10 +19,11 @@ class TreasureShip{
     private $default_tracker_txt = 'https://ngosang.github.io/trackerslist/trackers_best.txt'; // default
     # private $ts_cloud_url = "https://raw.githubusercontent.com/malimaliao/Synology-DLM-for-TPB_TreasureShip/main/ts.css";  // cloud
     private $ts_cloud_url = 'https://cdn.staticaly.com/gh/malimaliao/Synology-DLM-for-TPB_TreasureShip/main/ts.css';
+
     private $tpb_api = '';
+    private $tpb_host='';
     private $tracker_url = '';
     private $trackers_list = '';
-    private $tpb_host='';
 
     public function __construct(){
     }
@@ -37,7 +38,7 @@ class TreasureShip{
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.37');
-        curl_setopt($curl,CURLOPT_REFERER,$url);
+        # curl_setopt($curl,CURLOPT_REFERER,$url);
         $res = curl_exec($curl);
         if (curl_errno($curl)) {
             $res =  curl_error($curl);
