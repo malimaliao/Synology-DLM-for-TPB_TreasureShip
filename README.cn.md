@@ -1,11 +1,12 @@
 #Synology-DLM-for-TPB_TreasureShip
 
-> "TPB的宝船号" 是一个 [Synology Download Station](https://www.synology.com/en-global/dsm/packages/DownloadStation) 免费搜索插件。
+> "TPB 宝船号" 是一个 [Synology Download Station](https://www.synology.com/en-global/dsm/packages/DownloadStation) 免费搜索插件。
 
-为纪念<b>郑和</b> 1405 年至1433 年间开创的航海事业，因此本插件以 <b>宝船号</b> 命名，您可以使用它在在TPB网络中航行。
+通过此BT插件可以在群晖NAS的的Download Station中轻松接入到<b>The Proxy Bay</b> 及它相关的镜像站点。
 
 [English](README.cn.md) | [简体中文](README.cn.md)
 
+> TPB 是插件对<b>The Proxy Bay</b>的简称，English introduction based on Google Translate。
 
 #### 如何使用
 
@@ -36,23 +37,28 @@
   > tracklist.txt 名单不应该太长，太长会被系统截断
 
 
-#### 关于TPB
+#### 关于TPB & 特别说明
 
 > TPB：海盗湾的简称
 
-> 你要知道TPB在全球的域名和镜像是不稳定的，最好的办法是通过插件设置用户名&密码（即映射到TPB的主机地址，而不是真的用户名）而不是让插件帮你找到合适的TPB。
+* 海盗湾在全球是不断被封杀屏蔽的，推荐通过插件设置账号&密码映射自己找到的接口和trackerlist（即设置用户名映射为TPB接口地址，设置密码映射为Trackerlist地址；）；
+
+* 当使用者未设定账号/密码映射时候，插件将自动通过http访问[ts.css](ts.css)并从中获得接口的地址参数；
+
+* 接口优先级：[用户自定义映射接口] -> [ts.css接口] -> [插件默认接口]；
 
 
 
 ##### 相关链接
 
-TPB:
+TPB(The Proxy Bay):
 
-    * https://proxy-bay.click/
     * https://proxybay.pages.dev/
  
+ > 网络存在部分TPB的存档站点（非镜像），它们并不提供api接口请注意区分。
  
+
 Tracker list:
 
     * https://ngosang.github.io/trackerslist/
-    * https://trackerslist.com/
+    * https://github.com/XIU2/TrackersListCollection

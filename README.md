@@ -2,11 +2,12 @@
 
 > The Treasure Ship in TPB is [Synology Download Station](https://www.synology.com/en-global/dsm/packages/DownloadStation) free search DLM plugin.
 
-To commemorate <b>Zheng He's</b> maritime career founded between 1405 and 1433, you can use this plugin called <b>Treasure Ship</b> to navigate on the TPB.
+This BT plug-in allows you to easily access <b>The Proxy Bay</b> in the Download Station of Synology NAS.
 
 
 [English](README.cn.md) | [简体中文](README.cn.md)
 
+> TPB is the abbreviation of The Proxy Bay, English introduction based on Google Translate.
 
 #### How To Use
 
@@ -15,9 +16,9 @@ To commemorate <b>Zheng He's</b> maritime career founded between 1405 and 1433, 
 * Download the [TPB_TreasureShip.dlm];
 * Open your Synology Download Station, and in Download Station, click the button for Setting;
 * In Setting page, click [BT Search tab] > [Add]
-* Specify the path of your .dlm file and click [Add to add the search engine into the list.
-* The search module is added into the list. Click OK to confirm. Now you can search torrents with the
-  newly added search engine.
+* Specify the path of your .dlm file and click [Add] to add the search engine into the list.
+* The search module is added into the list. Click [OK] to confirm. 
+* Enjoy!
   
 ##### update
 
@@ -38,22 +39,26 @@ To commemorate <b>Zheng He's</b> maritime career founded between 1405 and 1433, 
 > The tracklist.txt list should not be too long. It is recommended to have no more than 50 items. If it is too long, it will be truncated by the system
 
 
-#### About TPB
+#### About TPB & Special Note
 
 > TPB: The Pirate Bay
 
-> You must know that TPB's global domain name and image are unstable, and your best approach is to set the username&password (mapped to TPB) through the plugin instead of letting the plugin help you find a suitable TPB.
+* The Pirate Bay is constantly being blocked around the world. It is recommended to use the plugin to set up account & password mapping to the interface and trackerlist you find yourself (i.e. set the username to map to the TPB interface address, and set the password to map to the Trackerlist address);
+
+* When the user does not set the account/password mapping, the plugin will automatically access [ts.css](ts.css) through http and obtain the interface address parameters from it;
+
+* Interface priority: [User-defined mapping interface] -> [ts.css interface] -> [Plugin default interface];
 
 
 ##### Links
 
-TPB:
+TPB(The Proxy Bay):
 
-    * https://proxy-bay.click/
     * https://proxybay.pages.dev/
  
+ > There are some archive sites (not mirrors) of TPB on the Internet. They do not provide API interfaces. Please be careful to distinguish them. They will be marked with archive symbols on the website.
  
 Tracker list:
 
     * https://ngosang.github.io/trackerslist/
-    * https://trackerslist.com/
+    * https://github.com/XIU2/TrackersListCollection
