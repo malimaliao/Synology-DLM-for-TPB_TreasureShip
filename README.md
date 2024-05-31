@@ -1,8 +1,6 @@
 #Synology-DLM-for-TPB_TreasureShip
 
-> The Treasure Ship in TPB is [Synology Download Station](https://www.synology.com/en-global/dsm/packages/DownloadStation) free search DLM plugin.
-
-This BT plug-in allows you to easily access <b>The Proxy Bay</b> in the Download Station of Synology NAS.
+> The Treasure Ship in TPB is [Synology Download Station](https://www.synology.com/en-global/dsm/packages/DownloadStation) free search DLM plugin. This BT plug-in allows you to easily access <b>The Proxy Bay</b> in the Download Station of Synology NAS.
 
 
 [English](README.cn.md) | [简体中文](README.cn.md)

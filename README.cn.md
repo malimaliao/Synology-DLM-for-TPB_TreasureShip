@@ -1,8 +1,6 @@
 #Synology-DLM-for-TPB_TreasureShip
 
-> "TPB 宝船号" 是一个 [Synology Download Station](https://www.synology.com/en-global/dsm/packages/DownloadStation) 免费搜索插件。
-
-通过此BT插件可以在群晖NAS的的Download Station中轻松接入到<b>The Proxy Bay</b> 及它相关的镜像站点。
+> "TPB 宝船号" 是一个 [Synology Download Station](https://www.synology.com/en-global/dsm/packages/DownloadStation) 免费搜索插件。通过此BT插件可以在群晖NAS的的Download Station中轻松接入到<b>The Proxy Bay</b> 及它相关的镜像站点。
 
 [English](README.cn.md) | [简体中文](README.cn.md)
 
