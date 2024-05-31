@@ -33,6 +33,7 @@
 
     * login username: it will be used as an alternative TPB api url, For example: https://TPB.com/api?q=
     * login password: it will be used as an alternative trackerlist txt url, For example: https://trackerlist.io/trackers_best.txt
+    * If you do not set an account and password as the mapping interface, the plug-in will automatically try to obtain the cloud interface. If the acquisition fails, it will use the built-in interface address
 
 > The tracklist.txt list should not be too long. It is recommended to have no more than 50 items. If it is too long, it will be truncated by the system
 
