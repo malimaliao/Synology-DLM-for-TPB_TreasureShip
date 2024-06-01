@@ -30,24 +30,6 @@ class TreasureShip{
     public function __construct(){
     }
 
-    function GetPage($url){
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_HEADER, 1);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_setopt($curl, CURLOPT_TIMEOUT, 20);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.37');
-        # curl_setopt($curl,CURLOPT_REFERER,$url);
-        $res = curl_exec($curl);
-        if (curl_errno($curl)) {
-            $res =  curl_error($curl);
-        }
-        curl_close($curl);
-        return $res;
-    }
 
     private function DebugLog($str){
         if ($this->debug == true) {
@@ -137,9 +119,10 @@ class TreasureShip{
         $this->DebugLog(PHP_EOL.'@TPB start: '.$url.PHP_EOL);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HEADER, 0);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_setopt($curl, CURLOPT_TIMEOUT, 20);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 50);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.37');
@@ -183,7 +166,7 @@ class TreasureShip{
         return $res;
     }
 
-    function format_tpb_category($category_code){
+    private function format_tpb_category($category_code){
         switch ($category_code){
             case '1':
                 $category = 'Audio';
@@ -341,7 +324,7 @@ class TreasureShip{
         return $category;
     }
 
-    function format_tpb_trackers($trackers_cloud_url){
+    private function format_tpb_trackers($trackers_cloud_url){
         $trackers = urlencode($this -> default_trackers);
         if(preg_match("/http[s]?:\/\/[\w.]+[\w\/]*[\w.]*\??[\w=&\+\%]*/is",$trackers_cloud_url)){
             $result = file_get_contents($trackers_cloud_url,false, stream_context_create($this->opts));
