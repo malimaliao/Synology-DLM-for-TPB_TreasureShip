@@ -19,8 +19,8 @@ class TreasureShip{
     private $default_trackers_url = 'https://ngosang.github.io/trackerslist/trackers_best.txt'; // default
     private $default_trackers = '&tr=udp://tracker.coppersurfer.tk:6969/announce&tr=udp://tracker.openbittorrent.com:6969/announce&tr=udp://9.rarbg.to:2710/announce&tr=udp://9.rarbg.me:2780/announce&tr=udp://9.rarbg.to:2730/announce&tr=udp://tracker.opentrackr.org:1337&tr=http://p4p.arenabg.com:1337/announce&tr=udp://tracker.torrent.eu.org:451/announce&tr=udp://tracker.tiny-vps.com:6969/announce&tr=udp://open.stealth.si:80/announce';
 
-    private $ts_cloud_url = "https://raw.githubusercontent.com/malimaliao/Synology-DLM-for-TPB_TreasureShip/main/ts.css";  // cloud
-    #private $ts_cloud_url = 'https://cdn.staticaly.com/gh/malimaliao/Synology-DLM-for-TPB_TreasureShip/main/ts.css';
+    #private $ts_cloud_url = "https://raw.githubusercontent.com/malimaliao/Synology-DLM-for-TPB_TreasureShip/main/ts.css";  // cloud
+    private $ts_cloud_url = 'https://gitee.com/beijifeng/Synology-DLM-for-TPB_TreasureShip/raw/main/ts.css'; // ghost form github, for cloud.
 
     private $tpb_api = '';
     private $tpb_host='';
