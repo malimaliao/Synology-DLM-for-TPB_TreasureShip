@@ -84,6 +84,7 @@ class TreasureShip{
         # init
         if($this->tpb_api == ''){
             if ($username == "" or $password == "") {
+                $this->DebugLog("TPB(No account password mapping used): ".PHP_EOL);
                 // get ts cloud b64
                 $this->DebugLog("TPB(get start): ".$this->ts_cloud_url.PHP_EOL);
                 $tmp = file_get_contents($this->ts_cloud_url,false, stream_context_create($this->opts));
@@ -106,9 +107,12 @@ class TreasureShip{
                 // check username_url
                 if(preg_match("/http[s]?:\/\/[\w.]+[\w\/]*[\w.]*\??[\w=&\+\%]*/is",$username)){
                     $tpb_api = $username;
-                    $this->DebugLog("TPB(tpb replace with username_url): ".$tpb_api.PHP_EOL);
+                    $u = parse_url($username);
+                    $tpb_from = $u['scheme'].'://'.$u['host'];
+                    $this->DebugLog("TPB(tpb api replace with username_url): ".$tpb_api.PHP_EOL);
                 }else{
                     $tpb_api = $this->default_api_url;
+                    $tpb_from = $this->default_api_host;
                     $this->DebugLog("TPB(username_url check bad and use default): ".$tpb_api.PHP_EOL);
                 }
                 # check password_url
@@ -119,18 +123,18 @@ class TreasureShip{
                     $trackers_url = $this->default_trackers_url;
                     $this->DebugLog("TPB(password_url check bad and use default): ".$trackers_url.PHP_EOL);
                 }
-                $tpb_from = $this->default_api_host;
             }
             $this->tpb_api = $tpb_api; // update
             $this->trackers_url = $trackers_url; // update
             $this->tpb_host = $tpb_from; // update
+            $this->DebugLog("TPB(tpb host source echo): ".$tpb_from.PHP_EOL);
         }
         if($this->trackers_list == ''){
             $this->trackers_list = $this->format_tpb_trackers($this->trackers_url); // update
         }
         # start
         $url = sprintf($this->tpb_api.'%s&cat=', urlencode($query));
-        $this->DebugLog($url.PHP_EOL);
+        $this->DebugLog(PHP_EOL.'@TPB start: '.$url.PHP_EOL);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HEADER, 0);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -145,11 +149,12 @@ class TreasureShip{
     public function parse($plugin, $response)
     {
         $response = str_replace(array("\r\n", "\r", "\n"), "", $response); //抛弃所有换行便于正则匹配
-        $this->DebugLog(PHP_EOL.$response.PHP_EOL.PHP_EOL);
+        $this->DebugLog('@TPB response: '.PHP_EOL.$response.PHP_EOL.PHP_EOL);
 
         $items = json_decode($response,true);
         $res = 0;
         if($items != null){
+            $this->DebugLog(PHP_EOL.PHP_EOL.'@TPB format: '.PHP_EOL);
             foreach ($items as $item){
                 $title = $item['name'];
                 $hash = $item['info_hash'];
@@ -352,7 +357,7 @@ class TreasureShip{
                 }
             }
         }
-        $this->DebugLog(PHP_EOL.PHP_EOL.$trackers.PHP_EOL.PHP_EOL);
+        $this->DebugLog(PHP_EOL.PHP_EOL.'@trackers list print: '.PHP_EOL.$trackers.PHP_EOL.PHP_EOL);
         return $trackers;
     }
 
