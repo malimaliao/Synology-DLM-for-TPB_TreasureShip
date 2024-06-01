@@ -20,7 +20,7 @@ class TreasureShip{
     private $default_trackers = '&tr=udp://tracker.openbittorrent.com:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://opentracker.io:6969/announce&tr=https://1337.abcvg.info:443/announce&tr=http://ipv6.rer.lol:6969/announce';
 
     #private $ts_cloud_url = "https://raw.githubusercontent.com/malimaliao/Synology-DLM-for-TPB_TreasureShip/main/ts.css";  // cloud
-    private $ts_cloud_url = 'https://cdn.jsdelivr.net/gh/malimaliao/Synology-DLM-for-TPB_TreasureShip@main/ts.css'; // mirror form github, for cloud.
+    private $ts_cloud_url = 'https://malimaliao.github.io/Synology-DLM-for-TPB_TreasureShip/ts.css'; // mirror form github, for cloud.
 
     private $tpb_api = '';
     private $tpb_host='';
