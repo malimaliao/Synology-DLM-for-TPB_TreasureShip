@@ -1,7 +1,7 @@
 {
     "name": "TPB_TreasureShip",
     "displayname": "TPB TreasureShip",
-    "description": "To commemorate Zheng He's maritime career founded between 1405 and 1433, you can use this plugin called [Treasure Ship] to navigate on the TPB.",
+    "description": "Easily access to The Proxy Bay or its mirror site to get index data.",
     "accountsupport": true,
     "version": "1.2",
     "site": "https://TPB_TreasureShip.com",

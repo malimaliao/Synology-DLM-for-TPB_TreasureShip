@@ -1,13 +1,14 @@
-#Synology-DLM-for-TPB_TreasureShip
+#TPB TreasureShip
 
-> TPB_TreasureShip is a search plug -in developed based on [Synology Download Station](https://www.synology.com/en-global/dsm/packages/DownloadStation), Using it in the Download Station of Synology NAS, it can easily access the index data to The Proxy Bay or its related mirror site.
+> "TPB TreasureShip" is a search plug -in developed based on [Synology Download Station](https://www.synology.com/en-global/dsm/packages/DownloadStation), Using it in the Download Station of Synology NAS, it can easily access the index data to The Proxy Bay or its related mirror site.
 
 
 [English](README.en.md) | [简体中文](README.md)
 
-> TPB is the abbreviation of The Proxy Bay, English introduction based on Google Translate.
+##### statement:
 
-#### How To Use
+> TPB is the abbreviation of The Proxy Bay, English introduction based on Google Translate. This program is only for learning and research. Based on crawlers, the user actively collects index data returned from TPB. All content and behavior have nothing to do with this author!
+
 
 ##### install:
 
