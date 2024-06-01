@@ -4,7 +4,7 @@
     "description": "Easily access to The Proxy Bay or its mirror site to get index data.",
     "accountsupport": true,
     "version": "1.2",
-    "site": "https://TPB_TreasureShip.com",
+    "site": "https://github.com/malimaliao/Synology-DLM-for-TPB_TreasureShip",
     "type": "search",
     "module": "search.php",
     "class": "TreasureShip"
