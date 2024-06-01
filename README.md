@@ -63,3 +63,4 @@ Tracker list:
 
     * https://ngosang.github.io/trackerslist/
     * https://github.com/XIU2/TrackersListCollection
+    * https://newtrackon.com
