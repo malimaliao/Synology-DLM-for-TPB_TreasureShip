@@ -7,7 +7,7 @@
  *
  *  $ts_cloud_url: TPB_TreasureShip cloud api:
  *      >>: format: tpb@<web:url><api:url><trackers:url>
- *      >>: example: tpb@<web:http://test.com><api:http://test.com/api/q.php?q=><trackers:http://test.com/trackers.txt>
+ *      >>: example: tpb@<web:http://tpb.com><api:http://tpb.com/api/q.php?q=><trackers:http://test.com/trackers.txt>
  */
 
 class TreasureShip{
@@ -16,13 +16,15 @@ class TreasureShip{
 
     private $default_api_url = "https://apibay.org/q.php?q="; // default
     private $default_api_host = "https://thepiratebay.org"; // default
-    private $default_tracker_txt = 'https://ngosang.github.io/trackerslist/trackers_best.txt'; // default
+    private $default_trackers_url = 'https://ngosang.github.io/trackerslist/trackers_best.txt'; // default
+    private $default_trackers = '&tr=udp://tracker.coppersurfer.tk:6969/announce&tr=udp://tracker.openbittorrent.com:6969/announce&tr=udp://9.rarbg.to:2710/announce&tr=udp://9.rarbg.me:2780/announce&tr=udp://9.rarbg.to:2730/announce&tr=udp://tracker.opentrackr.org:1337&tr=http://p4p.arenabg.com:1337/announce&tr=udp://tracker.torrent.eu.org:451/announce&tr=udp://tracker.tiny-vps.com:6969/announce&tr=udp://open.stealth.si:80/announce';
+
     private $ts_cloud_url = "https://raw.githubusercontent.com/malimaliao/Synology-DLM-for-TPB_TreasureShip/main/ts.css";  // cloud
     #private $ts_cloud_url = 'https://cdn.staticaly.com/gh/malimaliao/Synology-DLM-for-TPB_TreasureShip/main/ts.css';
 
     private $tpb_api = '';
     private $tpb_host='';
-    private $tracker_url = '';
+    private $trackers_url = '';
     private $trackers_list = '';
 
     public function __construct(){
@@ -95,7 +97,7 @@ class TreasureShip{
                     $this->DebugLog("TPB(get success, trackers): ".$trackers_url.PHP_EOL);
                 }else{
                     $tpb_api = $this->default_api_url;
-                    $trackers_url = $this->default_tracker_txt;
+                    $trackers_url = $this->default_trackers_url;
                     $tpb_from = $this->default_api_host;
                     $this->DebugLog("TPB(get bad and tpb use default): ".$tpb_api.PHP_EOL);
                     $this->DebugLog("TPB(get bad and trackers use default): ".$trackers_url.PHP_EOL);
@@ -114,17 +116,17 @@ class TreasureShip{
                     $trackers_url = $password;
                     $this->DebugLog("TPB(trackers replace with password_url): ".$trackers_url.PHP_EOL);
                 }else{
-                    $trackers_url = $this->default_tracker_txt;
+                    $trackers_url = $this->default_trackers_url;
                     $this->DebugLog("TPB(password_url check bad and use default): ".$trackers_url.PHP_EOL);
                 }
                 $tpb_from = $this->default_api_host;
             }
             $this->tpb_api = $tpb_api; // update
-            $this->tracker_url = $trackers_url; // update
+            $this->trackers_url = $trackers_url; // update
             $this->tpb_host = $tpb_from; // update
         }
         if($this->trackers_list == ''){
-            $this->trackers_list = $this->format_tpb_trackers($this->tracker_url); // update
+            $this->trackers_list = $this->format_tpb_trackers($this->trackers_url); // update
         }
         # start
         $url = sprintf($this->tpb_api.'%s&cat=', urlencode($query));
@@ -334,10 +336,10 @@ class TreasureShip{
         return $category;
     }
 
-    function format_tpb_trackers($password_url){
-        $trackers = '&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969%2Fannounce&tr=udp%3A%2F%2F9.rarbg.to%3A2710%2Fannounce&tr=udp%3A%2F%2F9.rarbg.me%3A2780%2Fannounce&tr=udp%3A%2F%2F9.rarbg.to%3A2730%2Fannounce&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=http%3A%2F%2Fp4p.arenabg.com%3A1337%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Ftracker.tiny-vps.com%3A6969%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce';
-        if(preg_match("/http[s]?:\/\/[\w.]+[\w\/]*[\w.]*\??[\w=&\+\%]*/is",$password_url)){
-            $result = file_get_contents($password_url,false, stream_context_create($this->opts));
+    function format_tpb_trackers($trackers_cloud_url){
+        $trackers = urlencode($this -> default_trackers);
+        if(preg_match("/http[s]?:\/\/[\w.]+[\w\/]*[\w.]*\??[\w=&\+\%]*/is",$trackers_cloud_url)){
+            $result = file_get_contents($trackers_cloud_url,false, stream_context_create($this->opts));
             if (strpos($result, 'announce') !== false) {
                 $lines = preg_split('/[\s]+/',$result);
                 if(count($lines)>0){
