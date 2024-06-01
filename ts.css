@@ -4,9 +4,6 @@
 * It is a disguised css file, its main purpose is to provide cloud services for the TPB_TreasureShip.dlm plug-in;
 * When the user does not set the account/password mapping, the plug-in will automatically access ts.css through http and obtain the address parameters of the interface from it;
 * Interface priority: [User-defined mapping interface] -> [ts.css interface] -> [Plugin default interface];
-
-* 是一个伪装的css文件，它主要目的是给TPB_TreasureShip.dlm插件提供云服务；
-* 当使用者未设定账号/密码映射时候，插件将自动通过http访问ts.css并从中获得接口的地址参数；
 * 接口优先级：[用户自定义映射接口] -> [ts.css接口] -> [插件默认接口]；
 
 version: 1.1(old)
