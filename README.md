@@ -53,7 +53,7 @@
 
 ##### 相关链接
 
-TPB(The Pirate BayThe Proxy Bay):
+TPB(The Pirate Bay):
 
     * https://thepiratebay.org
     * https://proxybay.pages.dev
