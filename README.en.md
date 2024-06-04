@@ -1,13 +1,13 @@
 #TPB TreasureShip
 
-> "TPB TreasureShip" is a search plug -in developed based on [Synology Download Station](https://www.synology.com/en-global/dsm/packages/DownloadStation), Using it in the Download Station of Synology NAS, it can easily access the index data to The Proxy Bay or its related mirror site.
+> "TPB TreasureShip" is a search plug -in developed based on [Synology Download Station](https://www.synology.com/en-global/dsm/packages/DownloadStation), Using it in the Download Station of Synology NAS, it can easily access the index data to The Pirate Bay or its related mirror site.
 
 
 [English](README.en.md) | [简体中文](README.md)
 
 ##### statement:
 
-> TPB is the abbreviation of The Proxy Bay, English introduction based on Google Translate. This program is only for learning and research. Based on crawlers, the user actively collects index data returned from TPB. All content and behavior have nothing to do with this author!
+> TPB is the abbreviation of The Pirate Bay, English introduction based on Google Translate. This program is only for learning and research. Based on crawlers, the user actively collects index data returned from TPB. All content and behavior have nothing to do with this author!
 
 
 ##### install:
@@ -52,11 +52,12 @@
 
 ##### Links
 
-TPB(The Proxy Bay):
+TPB(The Pirate Bay):
 
-    * https://proxybay.pages.dev/
+    * https://thepiratebay.org
+    * https://proxybay.pages.dev
  
- > There are some archive sites (not mirrors) of TPB on the Internet. They do not provide API interfaces. Please be careful to distinguish them. They will be marked with archive symbols on the website.
+ > There are some archive sites (not mirrors) of TPB on the Internet. They do not get API interfaces. Please be careful to distinguish them. They will be marked with archive symbols on the website.
  
 Tracker list:
 
