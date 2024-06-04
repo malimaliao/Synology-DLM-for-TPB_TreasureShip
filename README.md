@@ -1,13 +1,14 @@
 #TPB TreasureShip
 
-> "TPB 宝船号" 是一个基于[Synology Download Station](https://www.synology.com/en-global/dsm/packages/DownloadStation)开发的扩展搜索插件。在群晖NAS的Download Station中使用它可以轻松接入到<b>The Proxy Bay</b> 或它相关的镜像站点获取索引数据。
+> "TPB 宝船号" 是一个基于[Synology Download Station](https://www.synology.com/en-global/dsm/packages/DownloadStation)开发的扩展搜索插件。在群晖NAS的Download Station中使用它可以轻松接入到<b>The Pirate Bay</b> 或它相关的镜像站点获取索引数据。
 
 [English](README.en.md) | [简体中文](README.md)
 
+* English introduction based on Google Translate。
 
 ##### 声明：
 
-> TPB 是插件对<b>The Proxy Bay</b>的缩写，English introduction based on Google Translate。本程序仅作为学习研究之用，基于爬虫技术由使用者主动采集来自于TPB返回的索引数据，所有内容及行为均和本作者无关！</em>
+> TPB 是插件对<b>The Pirate Bay</b>的缩写，本程序仅作为学习研究之用，基于爬虫技术由使用者主动采集来自于TPB返回的索引数据，所有内容及行为均和本作者无关！
 
 
 ##### 安装:
@@ -20,7 +21,7 @@
   
 ##### 更新:
 
-> 您需要到此网页下载最新版本。
+> 插件不支持自动升级，如果需要新版本需要到此网页下载最新版本。
 
 
 ##### 特点:
@@ -52,11 +53,12 @@
 
 ##### 相关链接
 
-TPB(The Proxy Bay):
+TPB(The Pirate BayThe Proxy Bay):
 
-    * https://proxybay.pages.dev/
+    * https://thepiratebay.org
+    * https://proxybay.pages.dev
  
- > 网络存在部分TPB的存档站点（非镜像），它们并不提供api接口请注意区分。
+ > 网络存在部分TPB的存档站点（非镜像），它们并不能获取到api接口请注意区分。
  
 
 Tracker list:
