@@ -1,7 +1,7 @@
 {
     "name": "TPB_TreasureShip",
     "displayname": "TPB TreasureShip",
-    "description": "Easily access to The Proxy Bay or its mirror site to get index data.",
+    "description": "Easily access to The Pirate Bay or its mirror site to get index data.",
     "accountsupport": true,
     "version": "1.2",
     "site": "https://github.com/malimaliao/Synology-DLM-for-TPB_TreasureShip",
